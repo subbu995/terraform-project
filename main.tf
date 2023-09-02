@@ -1,16 +1,16 @@
 #this file consists of code for instances and sg
 provider "aws" {
-region = "ap-south-1"
-access_key = "AKIA33UP5WRO5JD5GF6R"
-secret_key = "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"
+region = "us-east-1"
+access_key = "AKIA33UP5WROZMXPDZPO"
+secret_key = "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"
 }
 
 resource "aws_instance" "one" {
-  ami             = "ami-0d951b011aa0b2c19"
+  ami             = "ami-0041b98fa770e38cd"
   instance_type   = "t2.micro"
   key_name        = "tfjenkins"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1a"
+  availability_zone = "eu-west-3a"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
@@ -25,11 +25,11 @@ EOF
 }
 
 resource "aws_instance" "two" {
-  ami             = "ami-0d951b011aa0b2c19"
+  ami             = "ami-0041b98fa770e38cd"
   instance_type   = "t2.micro"
   key_name        = "tfjenkins"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1b"
+  availability_zone = "eu-west-3b"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
@@ -44,29 +44,29 @@ EOF
 }
 
 resource "aws_instance" "three" {
-  ami             = "ami-0d951b011aa0b2c19"
+  ami             = "ami-0041b98fa770e38cd"
   instance_type   = "t2.micro"
   key_name        = "tfjenkins"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1a"
+  availability_zone = "eu-west-3a"
   tags = {
     Name = "app-server-1"
   }
 }
 
 resource "aws_instance" "four" {
-  ami             ="ami-0d951b011aa0b2c19"
+  ami             ="ami-0041b98fa770e38cd"
   instance_type   = "t2.micro"
   key_name        = "tfjenkins"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "ap-south-1b"
+  availability_zone = "eu-west-3b"
   tags = {
     Name = "app-server-2"
   }
 }
 
 resource "aws_security_group" "five" {
-  name = "elb-sg"
+  name = "elbtf-sg"
   ingress {
     from_port   = 22
     to_port     = 22
@@ -90,7 +90,7 @@ resource "aws_security_group" "five" {
 }
 
 resource "aws_s3_bucket" "six" {
-  bucket = "subrahmanyam009988"
+  bucket = "tfjenkins009988"
 }
 
 resource "aws_iam_user" "seven" {
@@ -105,7 +105,7 @@ default = ["user1", "user2", "user3", "user4"]
 }
 
 resource "aws_ebs_volume" "eight" {
- availability_zone = "ap-south-1a"
+ availability_zone = "eu-west-3a"
   size = 40
   tags = {
     Name = "ebs-001"
